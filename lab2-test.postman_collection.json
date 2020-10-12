@@ -1,0 +1,204 @@
+{
+	"info": {
+		"_postman_id": "454c1693-6a69-4c8c-811a-423e2c5d50e5",
+		"name": "lab2-test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "authorization+",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "976accab-f0b8-4144-9921-04a9768d51c1",
+						"exec": [
+							"pm.test(\r",
+							"    \"autorization pos (id)\",\r",
+							"    function() {\r",
+							"        var data = pm.response.json();\r",
+							"        pm.expect(data[0].id).to.eql(\"9\");\r",
+							"    } \r",
+							");\r",
+							"\r",
+							"pm.test(\r",
+							"    \"autorization pos (user-name)\",\r",
+							"    function() {\r",
+							"        var data = pm.response.json();\r",
+							"        var userN = pm.environment.get(\"userName\");\r",
+							"        pm.expect(data[0].email).to.eql(userN);\r",
+							"    } \r",
+							");\r",
+							"\r",
+							"\r",
+							"pm.test(\r",
+							"    \"autorization pos (name)\",\r",
+							"    function() {\r",
+							"        var data = pm.response.json();\r",
+							"        pm.expect(data[0].name).to.eql(\"Петров Николай\");\r",
+							"    } \r",
+							");\r",
+							"\r",
+							"pm.test(\r",
+							"    \"response time < 40\",\r",
+							"    function() {\r",
+							"        pm.expect(pm.response.responseTime).to.below(150);\r",
+							"    } \r",
+							");\r",
+							"\r",
+							"pm.test(\r",
+							"    \"status 200\",\r",
+							"    function() {\r",
+							"        pm.response.to.have.status(200);\r",
+							"    } \r",
+							");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"method\":\"getRole\",\"user\":{\"email\":\"w@w.w\",\"password\":\"f1290186a5d0b1ceab27f4e77c0c5d68\"}}"
+				},
+				"url": {
+					"raw": "http://lab2.webtm.ru/php/users.php",
+					"protocol": "http",
+					"host": [
+						"lab2",
+						"webtm",
+						"ru"
+					],
+					"path": [
+						"php",
+						"users.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "authorization-",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6ad7e920-55c1-4996-86da-bf6d72af5700",
+						"exec": [
+							"pm.test(\r",
+							"    \"autorization neg\",\r",
+							"    function() {\r",
+							"        var data = pm.response.json();\r",
+							"        pm.expect(data.length).to.eql(0);\r",
+							"    } \r",
+							");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"method\":\"getRole\",\"user\":{\"email\":\"w@w.w\",\"password\":\"81dc9bdb52d04dc20036dbd8313ed055\"}}"
+				},
+				"url": {
+					"raw": "http://lab2.webtm.ru/php/users.php",
+					"protocol": "http",
+					"host": [
+						"lab2",
+						"webtm",
+						"ru"
+					],
+					"path": [
+						"php",
+						"users.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addingP",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f4bc3f53-0c3e-4000-9b20-080ceefc0edf",
+						"exec": [
+							"pm.test(\r",
+							"    \"check ok response\",\r",
+							"    function(){\r",
+							"        var respOk = pm.response.text();\r",
+							"        pm.expect(respOk).to.eql(\"ok\");\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"method\":\"setterms\",\"jsonArray\":{\"birthday\":\"2019_1_1\",\"hour\":\"06\",\"minute\":\"00\",\"fam\":\"w\",\"name\":\"w\",\"date\":\"2020-10-07\"}}"
+				},
+				"url": {
+					"raw": "http://lab2.webtm.ru/php/terms.php",
+					"protocol": "http",
+					"host": [
+						"lab2",
+						"webtm",
+						"ru"
+					],
+					"path": [
+						"php",
+						"terms.php"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "cef0166a-c44a-4afe-9365-76df1ca4f111",
+				"type": "text/javascript",
+				"exec": [
+					"pm.environment.set(\"userName\", \"w@w.w\")"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "185b96fe-7e19-4c1b-b3d2-0e739e92c83a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "cff3558a-6a38-479a-9611-e10962b880fe",
+			"key": "userName",
+			"value": "w@w.w"
+		},
+		{
+			"id": "b25ea5f3-5ee2-414a-9e0e-74c49df24ad5",
+			"key": "userPass",
+			"value": ""
+		}
+	],
+	"protocolProfileBehavior": {}
+}
